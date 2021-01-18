@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/layout_header"
-        android:background="@mipmap/bg_snow"
+        android:background="@drawable/bg_snow"
         android:contentDescription="@string/todo" />
 
     <LinearLayout
@@ -81,7 +81,7 @@
                 android:layout_height="24dp"
                 android:layout_margin="10dp"
                 android:contentDescription="@string/todo"
-                android:src="@mipmap/ic_community" />
+                android:src="@drawable/ic_community" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -114,7 +114,7 @@
                 android:layout_height="32dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="6dp"
-                android:background="@mipmap/ic_start"
+                android:background="@drawable/ic_start"
                 android:contentDescription="@string/todo" />
 
             <TextView
@@ -147,7 +147,7 @@
                 android:layout_height="24dp"
                 android:layout_margin="10dp"
                 android:contentDescription="@string/todo"
-                android:src="@mipmap/ic_settings" />
+                android:src="@drawable/ic_settings" />
 
             <TextView
                 android:id="@+id/textView3"

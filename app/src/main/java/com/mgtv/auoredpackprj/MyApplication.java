@@ -1,6 +1,7 @@
 package com.mgtv.auoredpackprj;
 
 import android.app.Application;
+import android.preference.PreferenceManager;
 
 import com.mgtv.auoredpackprj.utils.ContextProvider;
 
@@ -16,5 +17,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         ContextProvider.init(this);
+        PreferenceManager.setDefaultValues(this, R.xml.general_preferences, false);
     }
 }

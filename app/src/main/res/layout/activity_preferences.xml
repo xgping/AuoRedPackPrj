@@ -6,17 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/preferences_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@android:layout/simple_list_item_1" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#E46C62"
-        tools:context=".SettingsActivity">
+        android:background="#E46C62">
 
         <ImageView
             android:id="@+id/preference_back"
@@ -28,7 +21,7 @@
             android:clickable="true"
             android:onClick="performBack"
             android:padding="10dp"
-            android:src="@mipmap/ic_back" />
+            android:src="@drawable/ic_back" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -41,7 +34,7 @@
             android:clickable="true"
             android:onClick="enterAccessibilityPage"
             android:padding="8dp"
-            android:src="@mipmap/ic_refresh" />
+            android:src="@drawable/ic_refresh" />
 
         <TextView
             android:id="@+id/settings_bar"
@@ -54,4 +47,10 @@
             android:textColor="#fff"
             android:textSize="18sp" />
     </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/preferences_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@android:layout/simple_list_item_1" />
 </LinearLayout>
