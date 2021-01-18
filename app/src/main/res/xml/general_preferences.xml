@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:icon="@null"
     tools:context=".SettingsActivity">
+
     <PreferenceCategory
         android:layout="@layout/preference_category"
         android:title="@string/watch_options">
@@ -19,12 +20,13 @@
             android:summary="@string/watch_list_hint"
             android:title="@string/watch_list" />
     </PreferenceCategory>
+
     <PreferenceCategory
         android:layout="@layout/preference_category"
         android:title="@string/anti_block_options">
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="pref_watch_chat"
+            android:key="pref_auto_open"
             android:layout="@layout/preference_checkbox"
             android:title="@string/auto_open_packets" />
         <CheckBoxPreference
