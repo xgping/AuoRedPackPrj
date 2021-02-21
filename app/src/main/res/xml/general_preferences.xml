@@ -31,6 +31,11 @@
             android:title="@string/auto_open_packets" />
         <CheckBoxPreference
             android:defaultValue="true"
+            android:key="pref_auto_close_result_page"
+            android:layout="@layout/preference_checkbox"
+            android:title="@string/auto_close_detail_page" />
+        <CheckBoxPreference
+            android:defaultValue="true"
             android:key="pref_watch_self"
             android:layout="@layout/preference_checkbox"
             android:title="@string/open_self" />

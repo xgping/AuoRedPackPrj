@@ -18,4 +18,9 @@ public class Constant {
      */
     public static final String KEY_PREF_DELAY_OPEN_RED_PACKETS = "pref_open_delay";
 
+    /**
+     * 自动关闭红包结果页面
+     */
+    public static final String KEY_PREF_AUTO_CLOSE_RESULT_PAGE = "pref_auto_close_result_page";
+
 }

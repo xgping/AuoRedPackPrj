@@ -40,6 +40,7 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
 
     private boolean isAutoFetchMonkey;
     private long mDelayOpenTime;
+    private boolean isAutoBack = true;
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
@@ -53,7 +54,9 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            performGlobalAction(GLOBAL_ACTION_BACK);
+                            if(isAutoBack) {
+                                performGlobalAction(GLOBAL_ACTION_BACK);
+                            }
                         }
                     }, 500);
                 } else if (mCurrentActivityName.contains(ACTIVITY_NAME_FOR_LUCKY_MONEY)) {
@@ -192,6 +195,8 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
             isAutoFetchMonkey = sharedPreferences.getBoolean(key, true);
         } else if (Constant.KEY_PREF_DELAY_OPEN_RED_PACKETS.equals(key)) {
             mDelayOpenTime = sharedPreferences.getInt(key, 0);
+        } else if (Constant.KEY_PREF_AUTO_CLOSE_RESULT_PAGE.equals(key)) {
+            isAutoBack = sharedPreferences.getBoolean(key, false);
         }
     }
 
