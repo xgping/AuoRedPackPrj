@@ -1,23 +1,26 @@
-package com.mgtv.auoredpackprj.activity;
+package com.mgtv.redPack.activity;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mgtv.auoredpackprj.R;
+import com.mgtv.redPack.R;
 
 import java.util.List;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class MainActivity extends AppCompatActivity implements AccessibilityManager.AccessibilityStateChangeListener {
+public class MainActivity extends Activity implements AccessibilityManager.AccessibilityStateChangeListener {
 
     private TextView pluginStatusText;
     private ImageView pluginStatusIcon;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loadUI();
 
         pluginStatusText = findViewById(R.id.layout_control_accessibility_text);
         pluginStatusIcon = findViewById(R.id.layout_control_accessibility_icon);
@@ -35,6 +39,19 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         //监听AccessibilityService 变化
         accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
         accessibilityManager.addAccessibilityStateChangeListener(this);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void loadUI() {
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return;
+
+        Window window = this.getWindow();
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        window.setStatusBarColor(0xffE46C62);
     }
 
     @Override
@@ -65,10 +82,10 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         }
         if (isServiceEnabled) {
             pluginStatusText.setText(R.string.service_off);
-            pluginStatusIcon.setBackgroundResource(R.mipmap.ic_stop);
+            pluginStatusIcon.setBackgroundResource(R.drawable.ic_stop);
         } else {
             pluginStatusText.setText(R.string.service_on);
-            pluginStatusIcon.setBackgroundResource(R.mipmap.ic_start);
+            pluginStatusIcon.setBackgroundResource(R.drawable.ic_start);
         }
     }
 
@@ -89,6 +106,10 @@ public class MainActivity extends AppCompatActivity implements AccessibilityMana
         settingsIntent.putExtra("title", getString(R.string.preference));
         settingsIntent.putExtra("frag_id", "GeneralSettingsFragment");
         startActivity(settingsIntent);
+    }
+
+    public void openGitHub(View view) {
+        //nothing to do
     }
 
     @Override

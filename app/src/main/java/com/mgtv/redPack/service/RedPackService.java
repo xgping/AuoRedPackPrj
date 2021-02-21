@@ -1,4 +1,4 @@
-package com.mgtv.auoredpackprj.service;
+package com.mgtv.redPack.service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.content.ComponentName;
@@ -10,14 +10,16 @@ import android.text.TextUtils;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.mgtv.auoredpackprj.utils.CommonUtils;
-import com.mgtv.auoredpackprj.utils.PowerUtil;
+import com.mgtv.redPack.Constant;
+import com.mgtv.redPack.utils.CommonUtils;
+import com.mgtv.redPack.utils.PowerUtil;
 
 import java.util.List;
 import java.util.regex.Pattern;
 
+
 public class RedPackService extends AccessibilityService implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private static final String TAG = "RedPackService";
+    private static final String TAG = "HongbaoService";
 
     private static final String DEFAULT_ACTIVITY_NAME = "LauncherUI";
 
@@ -33,12 +35,15 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
 
     private SharedPreferences mSharePreference;
     private PowerUtil mPowerManager;
-    private Object mLockObj = new Object();
 
     private Handler mHandler = new android.os.Handler();
 
+    private boolean isAutoFetchMonkey;
+    private long mDelayOpenTime;
+
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+        recordCurrentActivityName(event);
         recordCurrentActivityName(event);
         int eventType = event.getEventType();
         switch (eventType) {
@@ -57,7 +62,12 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
                 break;
             case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
                 if (mCurrentActivityName.contains(DEFAULT_ACTIVITY_NAME)) {
-                    applyOpenPacket();
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            applyOpenPacket();
+                        }
+                    }, mDelayOpenTime);
                 }
                 break;
             default:
@@ -77,7 +87,7 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
         for (int i = nodeList.size() - 1; i >= 0; i--) {
             AccessibilityNodeInfo node = nodeList.get(i);
             AccessibilityNodeInfo parent = node.getParent();
-            if (parent == null) {
+            if (parent == null || !parent.getClassName().equals("android.widget.FrameLayout")) {
                 return;
             }
             List<AccessibilityNodeInfo> tmp1 = parent.findAccessibilityNodeInfosByText("已被领完");
@@ -103,9 +113,17 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
      * 拆开红包
      */
     private void applyBtnClick() {
+        if (!isAutoFetchMonkey) {
+            return;
+        }
         for (int i = 0; i < 20; i++) {
             AccessibilityNodeInfo rootNode = getRootInActiveWindow();
             if (rootNode != null) {
+                List<AccessibilityNodeInfo> invalidNode = rootNode.findAccessibilityNodeInfosByText("手慢了，红包派完了");
+                if (invalidNode != null && invalidNode.size() > 0) {
+                    performGlobalAction(GLOBAL_ACTION_BACK);
+                    return;
+                }
                 List<AccessibilityNodeInfo> nodeList = rootNode.findAccessibilityNodeInfosByText("开");
                 if (nodeList != null) {
                     for (AccessibilityNodeInfo node : nodeList) {
@@ -122,7 +140,7 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
             }
             try {
                 synchronized (RedPackService.this) {
-                    wait(50);
+                    wait(20);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -170,10 +188,10 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        // 处理息屏抢红包逻辑
-        if (key.equals("pref_watch_on_lock")) {
-            Boolean changedValue = sharedPreferences.getBoolean(key, false);
-            this.mPowerManager.handleWakeLock(changedValue);
+        if (Constant.KEY_PREF_AUTO_FETCH_RED_PACKETS.equals(key)) {
+            isAutoFetchMonkey = sharedPreferences.getBoolean(key, true);
+        } else if (Constant.KEY_PREF_DELAY_OPEN_RED_PACKETS.equals(key)) {
+            mDelayOpenTime = sharedPreferences.getInt(key, 0);
         }
     }
 
@@ -183,9 +201,7 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
         if (mChatPageTitlePattern == null) {
             mChatPageTitlePattern = Pattern.compile(CHAT_PAGE_TITLE_TEMPLATE);
         }
-        // 处理息屏抢红包逻辑
-        this.mPowerManager = new PowerUtil(this);
-        Boolean watchOnLockFlag = mSharePreference.getBoolean("pref_watch_on_lock", false);
-        this.mPowerManager.handleWakeLock(watchOnLockFlag);
+        isAutoFetchMonkey = mSharePreference.getBoolean(Constant.KEY_PREF_AUTO_FETCH_RED_PACKETS, true);
+        mDelayOpenTime = mSharePreference.getInt(Constant.KEY_PREF_DELAY_OPEN_RED_PACKETS, 0);
     }
 }

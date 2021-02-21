@@ -1,4 +1,4 @@
-package com.mgtv.auoredpackprj.activity;
+package com.mgtv.redPack.activity;
 
 import android.annotation.TargetApi;
 import android.app.FragmentManager;
@@ -13,8 +13,8 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mgtv.auoredpackprj.R;
-import com.mgtv.auoredpackprj.fragment.GeneralSettingsFragment;
+import com.mgtv.redPack.R;
+import com.mgtv.redPack.fragment.GeneralSettingsFragment;
 
 import androidx.fragment.app.FragmentActivity;
 

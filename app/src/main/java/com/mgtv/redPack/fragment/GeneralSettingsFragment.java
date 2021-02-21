@@ -1,12 +1,11 @@
-package com.mgtv.auoredpackprj.fragment;
+package com.mgtv.redPack.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
-import com.mgtv.auoredpackprj.R;
+import com.mgtv.redPack.R;
 
 /**
  * Created by Zhongyi on 2/4/16.
