@@ -1,4 +1,4 @@
-package com.mgtv.auoredpackprj;
+package com.mgtv.redPack;
 
 import org.junit.Test;
 

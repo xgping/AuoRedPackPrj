@@ -1,4 +1,4 @@
-package com.mgtv.auoredpackprj.fragment;
+package com.mgtv.redPack.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.mgtv.auoredpackprj.R;
+import com.mgtv.redPack.Constant;
+import com.mgtv.redPack.R;
 
 /**
  * Created by Zhongyi on 2/3/16.
@@ -29,10 +30,8 @@ public class SeekBarPreference extends DialogPreference {
                 break;
             }
         }
-        if (prefKind.equals("pref_open_delay")) {
+        if (Constant.KEY_PREF_DELAY_OPEN_RED_PACKETS.equals(prefKind)) {
             hintText = getContext().getString(R.string.delay_open);
-        } else if (prefKind.equals("pref_comment_delay")) {
-            hintText = "发送回复(暂不支持延时)";
         }
     }
 

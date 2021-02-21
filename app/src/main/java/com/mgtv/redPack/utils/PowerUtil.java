@@ -1,4 +1,4 @@
-package com.mgtv.auoredpackprj.utils;
+package com.mgtv.redPack.utils;
 
 import android.app.KeyguardManager;
 import android.content.Context;

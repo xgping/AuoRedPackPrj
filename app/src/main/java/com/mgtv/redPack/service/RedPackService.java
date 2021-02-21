@@ -1,4 +1,4 @@
-package xyz.monkeytong.hongbao.services;
+package com.mgtv.redPack.service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.content.ComponentName;
@@ -10,9 +10,9 @@ import android.text.TextUtils;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import com.mgtv.auoredpackprj.Constant;
-import com.mgtv.auoredpackprj.utils.CommonUtils;
-import com.mgtv.auoredpackprj.utils.PowerUtil;
+import com.mgtv.redPack.Constant;
+import com.mgtv.redPack.utils.CommonUtils;
+import com.mgtv.redPack.utils.PowerUtil;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -43,6 +43,7 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+        recordCurrentActivityName(event);
         recordCurrentActivityName(event);
         int eventType = event.getEventType();
         switch (eventType) {
@@ -187,11 +188,7 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        // 处理息屏抢红包逻辑
-        if (Constant.KEY_PREF_WATCH_ON_LOCK.equals(key)) {
-            Boolean changedValue = sharedPreferences.getBoolean(key, false);
-            this.mPowerManager.handleWakeLock(changedValue);
-        } else if (Constant.KEY_PREF_AUTO_FETCH_RED_PACKETS.equals(key)) {
+        if (Constant.KEY_PREF_AUTO_FETCH_RED_PACKETS.equals(key)) {
             isAutoFetchMonkey = sharedPreferences.getBoolean(key, true);
         } else if (Constant.KEY_PREF_DELAY_OPEN_RED_PACKETS.equals(key)) {
             mDelayOpenTime = sharedPreferences.getInt(key, 0);
@@ -204,11 +201,6 @@ public class RedPackService extends AccessibilityService implements SharedPrefer
         if (mChatPageTitlePattern == null) {
             mChatPageTitlePattern = Pattern.compile(CHAT_PAGE_TITLE_TEMPLATE);
         }
-        // 处理息屏抢红包逻辑
-        this.mPowerManager = new PowerUtil(this);
-        Boolean watchOnLockFlag = mSharePreference.getBoolean(Constant.KEY_PREF_WATCH_ON_LOCK, false);
-        this.mPowerManager.handleWakeLock(watchOnLockFlag);
-
         isAutoFetchMonkey = mSharePreference.getBoolean(Constant.KEY_PREF_AUTO_FETCH_RED_PACKETS, true);
         mDelayOpenTime = mSharePreference.getInt(Constant.KEY_PREF_DELAY_OPEN_RED_PACKETS, 0);
     }

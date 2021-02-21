@@ -5,7 +5,7 @@
  * @Description :
  */
 
-package com.mgtv.auoredpackprj.utils;
+package com.mgtv.redPack.utils;
 
 import android.app.Application;
 import android.content.Context;

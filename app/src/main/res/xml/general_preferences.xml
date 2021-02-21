@@ -39,7 +39,7 @@
             android:layout="@layout/preference_checkbox"
             android:summary="@string/pref_watch_exclude_words_summary"
             android:title="@string/skip_phrases" />
-        <com.mgtv.auoredpackprj.fragment.SeekBarPreference
+        <com.mgtv.redPack.fragment.SeekBarPreference
             pref_kind="pref_open_delay"
             android:key="pref_open_delay"
             android:layout="@layout/preference_checkbox"

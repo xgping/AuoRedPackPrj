@@ -1,9 +1,9 @@
-package com.mgtv.auoredpackprj;
+package com.mgtv.redPack;
 
 import android.app.Application;
 import android.preference.PreferenceManager;
 
-import com.mgtv.auoredpackprj.utils.ContextProvider;
+import com.mgtv.redPack.utils.ContextProvider;
 
 /**
  * 文件描述:

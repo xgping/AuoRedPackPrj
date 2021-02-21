@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mgtv.auoredpackprj">
+    package="com.mgtv.redPack">
 
     <application
-        android:name=".MyApplication"
+        android:name="com.mgtv.redPack.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true">
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.mgtv.redPack.activity.MainActivity"
             android:theme="@style/Base.Theme.AppCompat.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,7 @@
         </activity>
 
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name="com.mgtv.redPack.activity.SettingsActivity"
             android:launchMode="standard"
             android:theme="@style/Base.Theme.AppCompat.Light"></activity>
 

@@ -1,4 +1,4 @@
-package com.mgtv.auoredpackprj;
+package com.mgtv.redPack;
 
 /**
  * 文件描述:
@@ -7,12 +7,6 @@ package com.mgtv.auoredpackprj;
  * 创建时间: 2021/1/18.
  */
 public class Constant {
-
-    /**
-     * 配置熄屏抢红包的key
-     */
-    public static final String KEY_PREF_WATCH_ON_LOCK = "pref_watch_on_lock";
-
 
     /**
      * 自动获取红包的key

@@ -1,4 +1,4 @@
-package com.mgtv.auoredpackprj.activity;
+package com.mgtv.redPack.activity;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.TargetApi;
@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mgtv.auoredpackprj.R;
+import com.mgtv.redPack.R;
 
 import java.util.List;
 
@@ -106,6 +106,10 @@ public class MainActivity extends Activity implements AccessibilityManager.Acces
         settingsIntent.putExtra("title", getString(R.string.preference));
         settingsIntent.putExtra("frag_id", "GeneralSettingsFragment");
         startActivity(settingsIntent);
+    }
+
+    public void openGitHub(View view) {
+        //nothing to do
     }
 
     @Override
